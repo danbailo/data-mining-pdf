@@ -1,6 +1,14 @@
 import textract
 import re
-from functools import reduce
+import os
+
+def get_pdfs(directory):
+    return os.listdir(directory)
+
+directory = "pdfs"
+
+for pdf in get_pdfs(directory):
+    os.path.join(directory,pdf)
 
 text = textract.process("exemplo_extrarcao_pdf.pdf")
 # text = textract.process("opcional + 1 titu. 4 a 29 nacional hosp_1.pdf")
@@ -17,14 +25,6 @@ valor_pattern = re.compile(r"R\$.*")
 
 for i in text:
     if i == '': text.remove(i)
-# print(text)
-# for i in text:
-#     if cifrao_pattern.match(i): text.remove(i)
-# for i in text:
-#     if adiante_pattern.match(i): text.remove(i)       
-
-
-# exit()
 
 planos = []
 regioes = []
@@ -42,36 +42,38 @@ for i in range(len(text)):
             if re.match(pattern=r".*(adiante?)",string=text[j]):
                 all_values = text[i+1:j+2].copy()
 
-                print(all_values)
-
-                exit()
+                for i in range(len(all_values)):
+                    try:
+                        if re.match(pattern=r"(^R\$$)", string=all_values[i]):
+                            all_values[i] = all_values[i] + " " + (all_values[i+1])                        
+                            all_values.remove(all_values[i+1])
+                    except Exception: break
 
                 all_values_cipher = [value for value in all_values if re.match(pattern=r"(^R\$ ?.+\d)", string=value)]
             
                 joined_values = " ".join(all_values_cipher)
+       
+                values_splited = re.split(pattern=r"(R\$ \d+\,\d+)|(R\$ \d\.\d+\,\d+)", string=joined_values, flags=0)
+                all_health_values = [new_value for new_value in values_splited if new_value not in [None, '', ' ']]
 
-                for number in joined_values.split():
-                    if re.match(pattern=r"(\d+\,\d+)|(\d\.\d+\,\d+)", string=number):
-                        print(number)
-
-                exit()
-                # test = [cipher.split() for cipher in all_values_cipher]
-
-                # print([t[1] for t in test])
-
+                health_values = []
+                try:
+                    for k in range(0,len(all_health_values),7): 
+                        health_values.append(all_health_values[k])
+                except Exception: pass
+                
+                saude_valores.append(health_values)
                 break # para o primeiro laco
             j += 1
 
-# print(calculo)
+print(calculo)
 
-# print(temp)
+print(planos[0])    
+print(regioes[0])    
+print(saude_valores[0])
 
-# print(planos[0])    
-# print(regioes[0])    
-# print(saude_valores[0])
+print()
 
-# print()
-
-# print(planos[1])    
-# print(regioes[1])    
-# print(saude_valores[1])   
+print(planos[1])    
+print(regioes[1])    
+print(saude_valores[1])   
