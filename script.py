@@ -2,7 +2,9 @@ import textract
 import re
 from functools import reduce
 
-text = textract.process("exemplo_extrarcao_pdf.pdf")
+# text = textract.process("exemplo_extrarcao_pdf.pdf")
+text = textract.process("opcional + 1 titu. 4 a 29 nacional hosp_1.pdf")
+
 text = text.decode("utf-8").split("\n")
 
 calculo_pattern = re.compile(r"(Identiﬁque o cálculo a ser armazenado*)")
@@ -32,38 +34,24 @@ for i in range(len(text)):
     if text[i]=="anos":
         j = i+1
         while True:
-            values = []
             if text[j]=="Total":
-                valores = text[i+1:j]
-                k = 0
-                while True:
-                    try:
-                        if valor_pattern.match(valores[k]):
-                            test = [re.sub(pattern=r"^\s", repl="",string=text) for text in (re.sub(pattern=r"(R\$)", repl="",string=text) for text in valores)]
-                            aux = []
-                            for i in range(len(test)):
-                                aux += test[i].split(" ")
-                            temp = []
-                            for i in aux:
-                                if re.match(pattern=r"(^\d+\,\d+|^\d+\.\d+\,\d+)",string=i): 
-                                    temp.append(i)                            
-                            values.append(temp[k])
-                            k += 9
-                    except Exception:
-                        saude_valores.append(values)
-                        break
-                break
+                all_values = text[i+1:j].copy()
+
+                value = [value for value in all_values if re.match(pattern=r"(^R\$ ?.+\d)", string=value)]
+                print(value)
+                break # para o primeiro laco
             j += 1
-print(calculo)
+
+# print(calculo)
 
 # print(temp)
 
-print(planos[0])    
-print(regioes[0])    
-print(saude_valores[0])
+# print(planos[0])    
+# print(regioes[0])    
+# print(saude_valores[0])
 
-print()
+# print()
 
-print(planos[1])    
-print(regioes[1])    
-print(saude_valores[1])   
+# print(planos[1])    
+# print(regioes[1])    
+# print(saude_valores[1])   
