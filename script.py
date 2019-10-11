@@ -45,17 +45,29 @@ if __name__ == "__main__":
 
         planos = []
         regioes = []
+        saude = []
         saude_valores = []
-        for i in range(len(text)):    
+        for i in range(len(text)):  
             if calculo_pattern.match(text[i]):
                 calculo = text[i+1]
             if plano_pattern.match(text[i]):
                 planos.append(plano_pattern.match(text[i])[1])
             if regiao_pattern.match(text[i]):
                 regioes.append(regiao_pattern.match(text[i])[1])
-            if re.match(pattern=r".*anos", string=text[i]):
+            if re.match(pattern=r"(.*anos)", string=text[i]):
                 saude_valores.append(text[i+1])
             if re.match(pattern=r"(\d\d a \d\d)", string=text[i]):
                 saude_valores.append(text[i+1])
-            if re.match(pattern=r".*adiante", string=text[i]):
-                saude_valores.append(text[i+1])                
+            if re.match(pattern=r"(.*adiante)", string=text[i]):
+                saude_valores.append(text[i+1])  
+
+        print(f"PDF: {pdf}\n")
+        print(f"Cálculo a ser armazenado: {calculo}")
+        print(f"Plano {planos}")
+        print(f"Região: {regioes}")
+        for i in range(0,len(saude_valores)+1):
+            if i!=0 and i%10==0:
+                j = i-10
+                for k in range(j,i):
+                    print(saude_valores[k])
+                print()
