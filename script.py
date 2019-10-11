@@ -1,5 +1,6 @@
 import textract
 import re
+from functools import reduce
 
 text = textract.process("exemplo_extrarcao_pdf.pdf")
 text = text.decode("utf-8").split("\n")
@@ -38,16 +39,22 @@ for i in range(len(text)):
                 while True:
                     try:
                         if valor_pattern.match(valores[k]):
-                            values.append(valores[k])                            
-                        k += 9
+                            test = [re.sub(pattern=r"^\s", repl="",string=text) for text in (re.sub(pattern=r"(R\$)", repl="",string=text) for text in valores)]
+                            aux = []
+                            for i in range(len(test)):
+                                aux += test[i].split(" ")
+                            temp = []
+                            for i in aux:
+                                if re.match(pattern=r"(^\d+\,\d+|^\d+\.\d+\,\d+)",string=i): 
+                                    temp.append(i)
+                            values.append(valores[k])                                                        
+                        k += 7
                     except Exception:
                         saude_valores.append(values)
                         break
                 break
             j += 1
 print(calculo)
-
-print()
 
 print(planos[0])    
 print(regioes[0])    
