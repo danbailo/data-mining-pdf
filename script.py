@@ -69,4 +69,5 @@ if __name__ == "__main__":
                 if saude_valores not in saude:
                     saude.append(saude_valores.copy())
                     saude_valores.clear()
+                    
         get_result(pdf, planos, regioes, saude)
