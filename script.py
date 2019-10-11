@@ -5,25 +5,6 @@ import os
 def get_pdfs(directory):
     return os.listdir(directory)
 
-def print_result(pdf_name, planos, regioes, saude_valores):
-    print(f"PDF: {pdf_name}\n")
-    
-    print(f"Cálculo a ser armazenado: {calculo}")
-
-    if len(planos) == len(regioes) == len(saude_valores):
-        for i in range(len(planos)):
-            print(f"Plano {planos[i]}")
-            print(f"Região: {regioes[i]}")
-            print(f"Saúde(R$): {saude_valores[i]}")
-            print()
-        print("="*100)
-        print()
-    else: 
-        assert("Tamanho das listas dos dados são diferentes!")
-        exit()
-
-        
-
 if __name__ == "__main__":
     
     directory = "pdfs"
@@ -45,7 +26,7 @@ if __name__ == "__main__":
 
         planos = []
         regioes = []
-        saude = []
+        teste = []
         saude_valores = []
         for i in range(len(text)):  
             if calculo_pattern.match(text[i]):
@@ -61,13 +42,15 @@ if __name__ == "__main__":
             if re.match(pattern=r"(.*adiante)", string=text[i]):
                 saude_valores.append(text[i+1])  
 
-        print(f"PDF: {pdf}\n")
-        print(f"Cálculo a ser armazenado: {calculo}")
-        print(f"Plano {planos}")
-        print(f"Região: {regioes}")
-        for i in range(0,len(saude_valores)+1):
-            if i!=0 and i%10==0:
-                j = i-10
-                for k in range(j,i):
-                    print(saude_valores[k])
-                print()
+            if len(saude_valores) != 0 and len(saude_valores)%10 == 0:            
+                if saude_valores not in teste:
+                    teste.append(saude_valores.copy())
+                    saude_valores.clear()
+        print(teste)
+        # print(f"Nome do arquivo: {pdf}\n")
+        # print(f"Cálculo a ser armazenado: {calculo}")
+        # print(f"Plano {planos}")
+        # print(f"Região: {regioes}")
+        # print(f"Saúde(R$): {saude_valores}\n")
+        # print("="*100)
+        # print()
