@@ -46,15 +46,17 @@ for i in range(len(text)):
                             temp = []
                             for i in aux:
                                 if re.match(pattern=r"(^\d+\,\d+|^\d+\.\d+\,\d+)",string=i): 
-                                    temp.append(i)
-                            values.append(valores[k])                                                        
-                        k += 7
+                                    temp.append(i)                            
+                            values.append(temp[k])
+                            k += 9
                     except Exception:
                         saude_valores.append(values)
                         break
                 break
             j += 1
 print(calculo)
+
+# print(temp)
 
 print(planos[0])    
 print(regioes[0])    
