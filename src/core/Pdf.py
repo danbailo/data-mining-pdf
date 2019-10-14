@@ -5,7 +5,7 @@ import os
 class Pdf:
     def __init__(self, file = None):
         if file is None: 
-            print("Por favor, entre com um arquivo ou um diretório!")
+            print("ERRO: Por favor, entre com um arquivo ou um diretório!")
             exit(-1)
         if os.path.isfile(file):
             self.__file = file
@@ -28,8 +28,11 @@ class Pdf:
 
     def get_pdfs(self):
         if self.get_directory():
-            return os.listdir(self.get_directory())
+            return [pdf for pdf in os.listdir(self.get_directory()) if pdf[-4:] =='.pdf']
         else:
+            if self.get_file()[-4:] != '.pdf':
+                print("ERRO: Por favor, passe um arquivo .pdf!")
+                exit(-1)
             return [self.get_file()]
 
     def print_result(self, pdf, calculo, planos, regioes, saudes):
@@ -39,15 +42,15 @@ class Pdf:
 
         if len(planos) == len(regioes) == len(saudes):
             for i in range(len(planos)):
-                print(f"Plano {planos[i]}")
+                print(f"Plano: {planos[i]}")
                 print(f"Região: {regioes[i]}")
-                print(f"Saúde(R$): {saudes[i]}")
+                print(f"Saúde(R$): {saudes[i]}")    
                 print()
             print("="*100)
             print()
         else: 
-            assert("Tamanho das listas dos dados são diferentes!")
-            exit()
+            print("ERRO: Tamanho das listas dos dados são diferentes!")
+            exit(-1)
     
     def get_result(self):
 
@@ -89,4 +92,9 @@ class Pdf:
                     if saude_valores not in saudes:
                         saudes.append(saude_valores.copy())
                         saude_valores.clear()
-            self.print_result(pdf, calculo, planos, regioes, saudes)
+            try:
+                if len(saudes) == 0: continue
+                self.print_result(pdf, calculo, planos, regioes, saudes)
+            except Exception:
+                print("ERRO: Por favor, certifique-se que este .pdf contem o mesmo que os outros padrão!")
+                exit(-1)
