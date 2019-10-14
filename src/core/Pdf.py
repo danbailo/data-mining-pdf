@@ -20,6 +20,9 @@ class Pdf:
         self.__saude_pattern_1 = re.compile(r"(.*anos)")
         self.__saude_pattern_2 = re.compile(r"(\d\d a \d\d)")
         self.__saude_pattern_3 = re.compile(r"(.*adiante)")
+        self.__money_sign = re.compile(r"R\$")
+        self.__comma = re.compile(r"\,")       
+        self.__dot = re.compile(r" \d{1}(\.)")
 
     def get_directory(self):
         return self.__directory
@@ -39,12 +42,12 @@ class Pdf:
     def print_result(self, pdf, calculo, planos, regioes, saudes):
         print(f"PDF: {pdf}\n")
         
-        print(f"Cálculo a ser armazenado: {calculo}")
+        print(f"Campo 1: {calculo}")
 
         if len(planos) == len(regioes) == len(saudes):
             for i in range(len(planos)):
-                print(f"Plano: {planos[i]}")
-                print(f"Região: {regioes[i]}")
+                print(f"Campo 2: {planos[i]}")
+                print(f"Campo 3: {regioes[i]}")
                 print(f"Saúde(R$): {saudes[i]}")    
                 print()
             print("="*100)
@@ -83,13 +86,28 @@ class Pdf:
                     regioes.append(regiao[1])
 
                 if self.__saude_pattern_1.match(text_splitted[i]):
-                    saude_valores.append(text_splitted[i+1])
+                    comma = re.sub(self.__comma, ".", text_splitted[i+1])
+                    money_sign = re.sub(self.__money_sign, "", comma)
+                    if self.__dot.match(money_sign):
+                        new_value = re.sub(r"\.", "", money_sign, count=1)
+                    else: new_value = money_sign
+                    saude_valores.append(new_value)
 
                 if self.__saude_pattern_2.match(text_splitted[i]):
-                    saude_valores.append(text_splitted[i+1])
+                    comma = re.sub(self.__comma, ".", text_splitted[i+1])
+                    money_sign = re.sub(self.__money_sign, "", comma)
+                    if self.__dot.match(money_sign):
+                        new_value = re.sub(r"\.", "", money_sign, count=1)                    
+                    else: new_value = money_sign
+                    saude_valores.append(new_value)
 
                 if self.__saude_pattern_3.match(text_splitted[i]):
-                    saude_valores.append(text_splitted[i+1])  
+                    comma = re.sub(self.__comma, ".", text_splitted[i+1])
+                    money_sign = re.sub(self.__money_sign, "", comma)
+                    if self.__dot.match(money_sign):
+                        new_value = re.sub(r"\.", "", money_sign, count=1)
+                    else: new_value = money_sign                    
+                    saude_valores.append(new_value)
 
                 if len(saude_valores) != 0 and len(saude_valores)%10 == 0:   
                     if saude_valores not in saudes:
