@@ -1,5 +1,9 @@
 import mysql.connector
 
+# user="NOME DE USUARIO DO BANCO DE DADOS"
+# passwd="SENHA DO USUARIO DO BANCO DE DADOS"
+# database="NOME DO BANCO DE DADOS"
+
 class Database:
     def __init__(self):
         self.conn = mysql.connector.connect(user="daniel", passwd="123456789", database="pdf_extract")

@@ -1,9 +1,11 @@
+from .Database import Database
 import textract
 import platform
 import re
 import os
-from .Database import Database
 import datetime
+
+SYSTEM = platform.system()
 
 class Pdf:
     def __init__(self, file = None):
@@ -72,16 +74,15 @@ class Pdf:
                 text = textract.process(os.path.join(self.get_directory(),pdf))
             else:
                 text = textract.process(self.get_file())
-                if platform.system() == "Windows": pdf = pdf.split(r"\\")[-1]
+                if SYSTEM == "Windows": pdf = pdf.split(r"\\")[-1]
                 else: pdf = pdf.split("/")[-1]
             text_splitted = text.decode("utf-8").split("\n")
 
-            if platform.system() == "Windows":
+            if SYSTEM == "Windows":
                 text_splitted = [re.sub(pattern=r"\r", repl="", string=t) for t in text_splitted]            
 
             for i in text_splitted:
                 if i == '': text_splitted.remove(i)
-            # text_splitted = [text_splitted.remove(i) for i in text_splitted if i =='']
 
             planos = []
             regioes = []
