@@ -31,7 +31,7 @@ Para executar o programa, abra um terminal/prompt de comando aberto, e como par�
     * **Executa o programa lendo um ou mais pdf que esteja dentro da pasta, exemplo:**
     * `python3 main.py -f ../pdfs/`
     * **Executa o programa lendo diretamente determinado pdf, exemplo:**
-    * `python3 main.py -f ../pdfs/exemplo_extrarcao_pdf.pdf`
+    * `python3 main.py -f ../pdfs/opcional\ +\ 1\ titu.\ 4\ a\ 29\ nacional\ hosp.pdf`
 
     * Windows
     * **Helper**
@@ -39,7 +39,7 @@ Para executar o programa, abra um terminal/prompt de comando aberto, e como par�
     * **Executa o programa lendo um ou mais pdf que esteja dentro da pasta, exemplo:**
     * `python main.py -f "..\\pdfs\\"`
     * **Executa o programa lendo diretamente determinado pdf, exemplo:**
-    * `python main.py -f "..\\pdfs\\exemplo_extrarcao_pdf.pdf"`
+    * `python main.py -f "..\\pdfs\\opcional + 1 titu. 30 a 99 nacional plus hosp.pdf"`
 
 Caso uma pasta que contenha mais de um tipo de arquivo seja passada como parâmetro, o programa só irá pegar os arquivos que são `.pdfs`.
 
