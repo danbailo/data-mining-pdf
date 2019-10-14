@@ -1,4 +1,5 @@
 import textract
+import platform
 import re
 import os
 
@@ -53,13 +54,15 @@ class Pdf:
             exit(-1)
     
     def get_result(self):
-
         for pdf in self.get_pdfs():
             if self.get_directory():
                 text = textract.process(os.path.join(self.get_directory(),pdf))
             else:
                 text = textract.process(self.get_file())
             text_splitted = text.decode("utf-8").split("\n")
+
+            if platform.system() == "Windows":
+                text_splitted = [re.sub(pattern=r"\r", repl="", string=t) for t in text_splitted]
 
             for i in text_splitted:
                 if i == '': text_splitted.remove(i)

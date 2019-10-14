@@ -30,8 +30,8 @@ Para executar o programa, abra um terminal/prompt de comando aberto, e como par�
     * `python3 main.py ../pdfs/exemplo_extrarcao_pdf.pdf`
 
     * Windows
-    * `python main.py ../pdfs/`
-    * `python3 main.py ../pdfs/exemplo_extrarcao_pdf.pdf`
+    * `python main.py ..\\pdfs\\`
+    * `python main.py ..\\pdfs\\exemplo_extrarcao_pdf.pdf`
 
 Caso uma pasta que contenha mais de um tipo de arquivo seja passada como parâmetro, o programa só irá pegar os arquivos que são `.pdfs`.
 
