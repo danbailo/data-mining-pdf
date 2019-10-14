@@ -1,12 +1,10 @@
 import mysql.connector
 
 class Database:
-    def __init__(self, usuario, senha):
-        self.conn = mysql.connector.connect(user=usuario,passwd=senha)
+    def __init__(self):
+        self.conn = mysql.connector.connect(user="daniel", passwd="123456789", database="pdf_extract")
         print("\nConectado ao banco de dados com sucesso!\n")
         self.cursor = self.conn.cursor()
-        self.cursor.execute("CREATE DATABASE IF NOT EXISTS pdf_extract")
-        self.cursor.execute("USE pdf_extract")   
         self.cursor.execute(
             "create table if not exists extracao_pdf "
             "( "
@@ -35,9 +33,6 @@ class Database:
             ", dt_ajuste datetime default null"
             ");"
         )             
-        
-    def truncate_tables(self):
-        self.cursor.execute("TRUNCATE TABLE extracao_pdf")
 
     def insert_into_extracao_pdf(self,extracao_pdf):
         add_extracao_pdf = (
@@ -47,7 +42,7 @@ class Database:
         )
         self.cursor.execute(add_extracao_pdf, extracao_pdf)
         self.conn.commit()
-    
-    def close(self):
+
+    def __del__(self):
         self.cursor.close()
-        self.conn.close()
+        self.conn.close()     
