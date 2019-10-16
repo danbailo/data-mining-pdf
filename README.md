@@ -6,7 +6,7 @@ Este projeto consiste em coletar alguns dados especificados pelo cliente de dete
 ---
 ## Requisitos
 
-* `Python 3`
+* `Python 3.7`
 * `pip (Gerenciador de pacotes do Python)`
 
 ---
@@ -15,7 +15,7 @@ Este projeto consiste em coletar alguns dados especificados pelo cliente de dete
 Para instalar as dependÃªncias, execute os comandos abaixo num terminal/prompt de comando:
 
 * Linux
-  * `python3 -m pip install -r requirements.txt --user`
+  * `python3.7 -m pip install -r requirements.txt --user`
 
 * Windows
   * `python -m pip install -r requirements.txt --user`
@@ -27,11 +27,11 @@ Para executar o programa, abra um terminal/prompt de comando aberto, e como parÃ
 * `cd src/`
     * Linux
     * **Helper**
-    * `python3 main.py -h`
+    * `python3.7 main.py -h`
     * **Executa o programa lendo um ou mais pdf que esteja dentro da pasta, exemplo:**
-    * `python3 main.py -f ../pdfs/`
+    * `python3.7 main.py -f ../pdfs/`
     * **Executa o programa lendo diretamente determinado pdf, exemplo:**
-    * `python3 main.py -f ../pdfs/opcional\ +\ 1\ titu.\ 4\ a\ 29\ nacional\ hosp.pdf`
+    * `python3.7 main.py -f ../pdfs/opcional\ +\ 1\ titu.\ 4\ a\ 29\ nacional\ hosp.pdf`
 
     * Windows
     * **Helper**
