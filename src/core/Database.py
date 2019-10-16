@@ -6,7 +6,12 @@ import mysql.connector
 
 class Database:
     def __init__(self):
-        self.conn = mysql.connector.connect(user="daniel", passwd="123456789", database="pdf_extract")
+        self.conn = mysql.connector.connect(
+            user="daniel",
+            passwd="123456789",
+            database="pdf_extract",
+            host="127.0.0.1"
+        )
         print("\nConectado ao banco de dados com sucesso!\n")
         self.cursor = self.conn.cursor()
         self.cursor.execute(
