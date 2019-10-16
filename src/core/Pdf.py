@@ -76,7 +76,8 @@ class Pdf:
                 text = textract.process(self.get_file())
                 if SYSTEM == "Windows": pdf = pdf.split(r"\\")[-1]
                 else: pdf = pdf.split("/")[-1]
-            text_splitted = text.decode("utf-8").split("\n")
+
+            text_splitted = text.decode("utf-8").replace('\xa0', '\n').split("\n")
 
             if SYSTEM == "Windows":
                 text_splitted = [re.sub(pattern=r"\r", repl="", string=t) for t in text_splitted]            
@@ -88,7 +89,7 @@ class Pdf:
             regioes = []
             saudes = []
             saude_valores = []
-            for i in range(len(text_splitted)):  
+            for i in range(len(text_splitted)): 
                 if self.__calculo_pattern.match(text_splitted[i]):
                     calculo = text_splitted[i+1]
 
